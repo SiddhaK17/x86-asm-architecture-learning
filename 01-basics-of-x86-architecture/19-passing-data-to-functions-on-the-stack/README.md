@@ -38,6 +38,8 @@ This program demonstrates how to **pass arguments to a function using the stack*
 ## 📦 Code Structure
 
 ```
+section .data
+
 section .text
 global main
 
@@ -67,34 +69,40 @@ main:
 
 ## 🧱 Stack Representation (Before `CALL addTwo`)
 
+```
 ESP →
 ┌────────────┐
 │ arg1 = 1   │ ← ESP (after PUSH 1)
 ├────────────┤
 │ arg2 = 4   │
-├────────────┤
+└────────────┘
+```
 
 ---
 
 ## 🧱 Stack After `CALL addTwo` (Inside `addTwo`)
 
+```
 ESP →
 ┌────────────┐
 │ Old EBP    │ ← Saved base pointer from main
 ├────────────┤
-│ Return 🢀   │ ← Address to return to after RET [EBP+4]
+│ Return 🢀   │ ← Address to return to after RET  ←  [EBP+4]
 ├────────────┤
 │ arg1 = 1   │ ← [EBP+8]
 ├────────────┤
 │ arg2 = 4   │ ← [EBP+12]
-├────────────┤
+└────────────┘
+```
 
 ---
 
 ### 📌 Stack Frame Details:
 
 - **EBP** → Points to **Old EBP**
+
 - **ESP** → Points to top of stack (changes as needed)
+
 - Function accesses arguments using `[EBP + offset]`
 
 ---
